@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asep Search - Mesin Pencari Sederhana</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        input {
+            padding: 10px;
+            width: 250px;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            outline: none;
+        }
+        input:focus {
+            border-color: #2980b9;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        ul {
+            margin-top: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 12px;
+            padding: 10px;
+            background-color: #fff;
+            border-left: 5px solid #3498db;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .keyword {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .description {
+            margin-left: 10px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Asep Search</h1>
+    <input type="text" id="searchInput" placeholder="Masukkan kata kunci...">
+    <button onclick="search()">Cari</button>
+
+    <ul id="results"></ul>
+
+    <script>
+        const data = {
+            "kopi": "Kopi adalah minuman yang dibuat dari biji kopi yang telah disangrai dan digiling. Rasanya biasanya pahit, bisa disesuaikan dengan tambahan gula atau susu. Kopi juga mengandung kafein, yang bisa memberi efek stimulan atau menyegarkan tubuh dan pikiran.",
+            "gula": "Gula adalah bahan pemanis yang biasanya berasal dari tebu atau bit gula. Gula digunakan untuk menambah rasa manis pada makanan dan minuman. Selain memberikan rasa, gula juga bisa berfungsi sebagai pengawet alami dan penambah energi cepat karena mengandung kalori sederhana.",
+            "teh": "Teh adalah minuman yang dibuat dari daun teh (biasanya Camellia sinensis) yang diseduh dengan air panas. Teh bisa dinikmati panas atau dingin, dan tersedia dalam berbagai jenis seperti teh hijau, teh hitam, teh oolong, dan lain-lain. Teh mengandung antioksidan yang baik untuk kesehatan dan dapat memberikan efek menenangkan atau menyegarkan tergantung jenis dan cara penyajiannya.",
+            "susu": "Susu adalah minuman yang dihasilkan dari hewan seperti sapi, kambing, atau kerbau, dan juga bisa dari nabati (misal: susu kedelai atau almond). Susu kaya akan kalsium, protein, vitamin, dan mineral yang penting untuk pertumbuhan tulang, gigi, dan kesehatan tubuh secara keseluruhan. Susu dapat dikonsumsi langsung, atau diolah menjadi produk lain seperti yogurt, keju, atau mentega.",
+            "roti": "Roti adalah makanan yang dibuat dari tepung, air, ragi, dan bahan tambahan lain. Bisa berbentuk manis, asin, atau tawar, dan biasanya dikonsumsi sebagai sarapan, camilan, atau pendamping makanan lain. Roti mengandung karbohidrat sebagai sumber energi utama, dan bisa juga diperkaya dengan serat, vitamin, atau biji-bijian tergantung jenisnya.",
+            "es campur": "Es campur adalah minuman pencuci mulut khas Indonesia yang berisi campuran buah, jelly, cincau, kolang-kaling, sirup, dan es serut. Rasanya manis dan segar, cocok dinikmati saat cuaca panas.",
+            "indomie": "Indomie adalah mie instan populer dari Indonesia yang mudah dimasak. Biasanya disajikan panas dengan bumbu khas dan tambahan topping seperti telur, sayuran, atau daging. Cocok untuk sarapan atau camilan cepat.",
+            "soto": "Soto adalah sup tradisional Indonesia yang terbuat dari daging ayam, sapi, atau kambing dengan kuah kuning bumbu rempah. Biasanya disajikan dengan nasi, bihun, telur, dan pelengkap seperti kerupuk atau sambal.",
+            "es cincau": "Es cincau adalah minuman segar dari cincau hitam atau hijau yang dipotong dadu, dicampur es dan sirup atau gula cair. Rasanya manis dan segar, sering dijadikan minuman pelepas dahaga saat cuaca panas."
+        };
+
+        function search() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const resultsContainer = document.getElementById("results");
+            resultsContainer.innerHTML = "";
+
+            const filteredKeys = Object.keys(data).filter(key => key.includes(query));
+
+            if(filteredKeys.length > 0){
+                filteredKeys.forEach(key => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `<span class="keyword">${key}</span>: <span class="description">${data[key]}</span>`;
+                    resultsContainer.appendChild(li);
+                });
+            } else {
+                const li = document.createElement("li");
+                li.textContent = "Tidak ada hasil ditemukan.";
+                resultsContainer.appendChild(li);
+            }
+        }
+    </script>
+</body>
+</html>
